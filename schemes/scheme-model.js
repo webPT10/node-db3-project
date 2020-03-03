@@ -1,7 +1,7 @@
-const db = require('../data/')
+const db = require('../data/config')
 
 function find(){
-    return 
+    return db
 }
 
 function findById(id){}
