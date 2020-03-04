@@ -46,15 +46,6 @@ function add(scheme) {
         })
 }
 
-// function update(changes, id) {
-//     return db("schemes")
-//         .where("schemes.id", id)
-//         .update(changes)
-//         .then(promise => {
-//             if(promise > 0) return findById(id)
-//             else return null
-//         })
-// }
 function update(changes, id) {
     return db("schemes")
         .where("schemes.id", id)
