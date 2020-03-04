@@ -37,7 +37,13 @@ function update(changes, id) {
         .then()
 }
 
-function remove(id) {}
+function remove(id) {
+    return db("schemes")
+        .where("schemes.id", id)
+        .del()
+
+
+}
 
 module.exports = {
   find,
