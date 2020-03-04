@@ -13,9 +13,22 @@ function findById(id) {
     });
 }
 
-function findSteps(id) {}
+function findSteps(id) {
+    return db("schemes")
+        .join("steps", "schemes.id", "steps.scheme_id")
+        .select("steps.id", "schemes.scheme_name", "steps.step_number", "steps.instructions")
+        .where("schemes.id", id)
+        .orderBy("steps.step_number")
+        .then(table => table || null)
+}
 
-function add(scheme) {}
+function add(scheme) {
+    return db("schemes")
+        .insert(scheme)
+        .then(ids => {
+            return findById(ids[0])
+        })
+}
 
 function update(changes, id) {}
 
