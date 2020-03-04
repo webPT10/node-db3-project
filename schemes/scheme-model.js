@@ -4,6 +4,12 @@ function find() {
   return db("schemes");
 }
 
+// SQL > function findById(id)
+// SELECT steps.id, schemes.scheme_name, steps.step_number, steps.instructions
+// FROM schemes 
+// JOIN steps 
+// ON steps.scheme_id = schemes.id
+// ORDER BY schemes.scheme_name, steps.step_number;
 function findById(id) {
   return db("schemes")
     .where({ id: id })
@@ -13,14 +19,22 @@ function findById(id) {
     });
 }
 
+// SQL > function findSteps(id)
+// SELECT steps.id, schemes.scheme_name, steps.step_number, steps.instructions
+// FROM schemes 
+// JOIN steps 
+// ON steps.scheme_id = schemes.id
+// WHERE schemes.id = 2
+// ORDER BY schemes.scheme_name, steps.step_number;
 function findSteps(id) {
     return db("schemes")
-        .join("steps", "schemes.id", "steps.scheme_id")
-        .select("steps.id", "schemes.scheme_name", "steps.step_number", "steps.instructions")
+        .select("steps.id", "schemes.scheme_name", "steps.step_number", "steps.instructions")    
+        .join("steps", "steps.scheme_id", "=", "schemes.id" )
         .where("schemes.id", id)
         .orderBy("steps.step_number")
         .then(table => table || null)
 }
+
 
 function add(scheme) {
     return db("schemes")
@@ -34,7 +48,10 @@ function update(changes, id) {
     return db("schemes")
         .where("schemes.id", id)
         .update(changes)
-        .then()
+        .then(promise => {
+            if(promise > 0) return findById(id)
+            else return null
+        })
 }
 
 function remove(id) {
