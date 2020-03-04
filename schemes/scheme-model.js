@@ -1,10 +1,12 @@
 const db = require('../data/config')
 
 function find(){
-    return db
+    return db("schemes")
 }
 
-function findById(id){}
+function findById(id){
+    
+}
 
 function findSteps(id){}
 
