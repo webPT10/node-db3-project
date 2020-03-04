@@ -36,6 +36,8 @@ function findSteps(id) {
 }
 
 
+// SQL > function add()
+
 function add(scheme) {
     return db("schemes")
         .insert(scheme)
@@ -44,12 +46,21 @@ function add(scheme) {
         })
 }
 
+// function update(changes, id) {
+//     return db("schemes")
+//         .where("schemes.id", id)
+//         .update(changes)
+//         .then(promise => {
+//             if(promise > 0) return findById(id)
+//             else return null
+//         })
+// }
 function update(changes, id) {
     return db("schemes")
         .where("schemes.id", id)
         .update(changes)
-        .then(promise => {
-            if(promise > 0) return findById(id)
+        .then(ids => {
+            if(ids > 0) return findById(id)
             else return null
         })
 }
@@ -58,8 +69,6 @@ function remove(id) {
     return db("schemes")
         .where("schemes.id", id)
         .del()
-
-
 }
 
 module.exports = {
